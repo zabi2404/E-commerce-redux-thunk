@@ -2,10 +2,12 @@ import  { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProduct } from '../store/ProductSlice';
 import type { AppDispatch } from '../store/store';
+import { addtoCart } from '../store/CartSlice';
 
 export default function ProductList() {
 
   const {item:productList,status,error} = useSelector((state:any)=>state.product)
+   useSelector((state:any)=>console.log(state.cart))
 const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
    if(status==='idle'){
@@ -34,7 +36,11 @@ const dispatch = useDispatch<AppDispatch>()
               </p>
             </div>
             <div className='w-full'>
-              <button className='bg-orange-500 py-4 px-6 rounded-md w-full mt-4 hover:opacity-90 cursor-pointer text-white'>
+              <button className='bg-orange-500 py-4 px-6 rounded-md w-full mt-4 hover:opacity-90 cursor-pointer text-white'
+              onClick={()=>{dispatch(addtoCart(item))
+                
+              }}
+              >
                 Add to Cart
               </button>
             </div>
